@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: Slack Demo
+Resources:
+  slackdemolambda:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.6
+      CodeUri: ./slack
+      Description: 'Slack CI/CD demo'
+      MemorySize: 128
+      Timeout: 10
+      Role: 'arn:aws:iam::055645250858:role/SlackLambda'
+      Events:
+        demoapi:
+          Type: Api
+          Properties:
+            Path: /getdemores
+            Method: get
+      Environment:
+        Variables:
+          REGION: us-east-2
